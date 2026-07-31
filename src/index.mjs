@@ -6,6 +6,8 @@
  * configuration lives in `settings['i18n-literal']`.
  */
 
+import noLiteralString from './rules/no-literal-string.mjs';
+
 const stub = {
     meta: {
         type: 'problem',
@@ -23,7 +25,7 @@ const plugin = {
         version: '0.1.0',
     },
     rules: {
-        'no-literal-string': stub,
+        'no-literal-string': noLiteralString,
         'no-literal-jsx-attribute': stub,
         'no-literal-template': stub,
     },

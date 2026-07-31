@@ -6,6 +6,7 @@
  * configuration lives in `settings['i18n-literal']`.
  */
 
+import pkg from '../package.json' with { type: 'json' };
 import noLiteralJsxAttribute from './rules/no-literal-jsx-attribute.mjs';
 import noLiteralString from './rules/no-literal-string.mjs';
 import noLiteralTemplate from './rules/no-literal-template.mjs';
@@ -13,7 +14,7 @@ import noLiteralTemplate from './rules/no-literal-template.mjs';
 const plugin = {
     meta: {
         name: 'i18n-literal',
-        version: '0.1.0',
+        version: pkg.version,
     },
     rules: {
         'no-literal-string': noLiteralString,

@@ -1,0 +1,11 @@
+{
+    "plugins": ["typescript"],
+    "jsPlugins": [
+        { "name": "i18n-literal", "specifier": "../../../../src/index.mjs" }
+    ],
+    "categories": { "correctness": "off" },
+    "settings": { "i18n-literal": { "presets": ["elysia"] } },
+    "rules": {
+        "i18n-literal/no-literal-string": "error"
+    }
+}

@@ -1,6 +1,7 @@
 import { resolveOptions, sharedSchemaFor } from '../lib/options.mjs';
 import {
-    hasAncestor,
+    isComputedMemberKey,
+    isInJSXAttributeValue,
     isInTypeContext,
     isInsideIgnoredAttribute,
     isInsideIgnoredCall,
@@ -13,11 +14,6 @@ function preview(text) {
     const trimmed = String(text).trim();
 
     return trimmed.slice(0, 50) + (trimmed.length > 50 ? '...' : '');
-}
-
-/** True when the literal sits inside a JSXAttribute value. */
-function isInJSXAttribute(node) {
-    return hasAncestor(node, (current) => current.type === 'JSXAttribute');
 }
 
 export default {
@@ -55,11 +51,17 @@ export default {
                     return;
                 }
 
-                if (!isInJSXAttribute(node)) {
+                if (!isInJSXAttributeValue(node)) {
                     return;
                 }
 
                 if (isInsideIgnoredAttribute(node, options)) {
+                    return;
+                }
+
+                // `hint={errors['form_data.amount']}` addresses a data
+                // structure; the key is never rendered.
+                if (isComputedMemberKey(node)) {
                     return;
                 }
 

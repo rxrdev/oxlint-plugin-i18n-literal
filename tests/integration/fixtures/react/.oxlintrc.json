@@ -1,0 +1,13 @@
+{
+    "plugins": ["react", "typescript"],
+    "jsPlugins": [
+        { "name": "i18n-literal", "specifier": "../../../../src/index.mjs" }
+    ],
+    "categories": { "correctness": "off" },
+    "settings": { "i18n-literal": { "presets": ["react"] } },
+    "rules": {
+        "i18n-literal/no-literal-string": "error",
+        "i18n-literal/no-literal-jsx-attribute": "error",
+        "i18n-literal/no-literal-template": "error"
+    }
+}

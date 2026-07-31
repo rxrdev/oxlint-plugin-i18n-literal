@@ -4,6 +4,7 @@ import {
     isInElysiaDetailObject,
     isErrorHelperMessage,
     isInImportExport,
+    isInJSXAttributeValue,
     isInJSXContext,
     isInTypeContext,
     isInsideIgnoredCall,
@@ -81,6 +82,13 @@ export default {
 
                 if (!isApiContext) {
                     if (!isInJSXContext(node)) {
+                        return;
+                    }
+
+                    // Attribute values belong to no-literal-jsx-attribute,
+                    // which is the rule that knows the ignoredAttributes list.
+                    // Without this the two rules double-report every attribute.
+                    if (isInJSXAttributeValue(node)) {
                         return;
                     }
 

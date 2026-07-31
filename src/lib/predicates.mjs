@@ -68,6 +68,35 @@ export function isInJSXContext(node) {
     return false;
 }
 
+/**
+ * True when the node is part of a JSX attribute's value.
+ *
+ * Bounded like `isInJSXContext`: a literal inside a callback passed to an
+ * attribute (`onClick={() => alert('hi')}`) is imperative code, not an
+ * attribute value, even though a JSXAttribute sits above it.
+ *
+ * This is the line that divides `no-literal-string` from
+ * `no-literal-jsx-attribute` — the string rule skips what this claims, so
+ * every literal is reported by exactly one of them.
+ */
+export function isInJSXAttributeValue(node) {
+    let current = node.parent;
+
+    while (current) {
+        if (current.type === 'JSXAttribute') {
+            return true;
+        }
+
+        if (FUNCTION_BOUNDARY_TYPES.has(current.type)) {
+            return false;
+        }
+
+        current = current.parent;
+    }
+
+    return false;
+}
+
 const CLASS_NAME_ATTRIBUTE_PATTERN = /classname$/i;
 
 export function isInsideIgnoredAttribute(node, options) {

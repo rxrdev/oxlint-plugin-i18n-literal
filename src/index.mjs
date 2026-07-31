@@ -8,17 +8,7 @@
 
 import noLiteralJsxAttribute from './rules/no-literal-jsx-attribute.mjs';
 import noLiteralString from './rules/no-literal-string.mjs';
-
-const stub = {
-    meta: {
-        type: 'problem',
-        schema: [{ type: 'object', additionalProperties: true }],
-        messages: { default: 'stub' },
-    },
-    create() {
-        return {};
-    },
-};
+import noLiteralTemplate from './rules/no-literal-template.mjs';
 
 const plugin = {
     meta: {
@@ -28,7 +18,7 @@ const plugin = {
     rules: {
         'no-literal-string': noLiteralString,
         'no-literal-jsx-attribute': noLiteralJsxAttribute,
-        'no-literal-template': stub,
+        'no-literal-template': noLiteralTemplate,
     },
     configs: {
         recommended: {

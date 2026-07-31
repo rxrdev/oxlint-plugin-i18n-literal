@@ -1,16 +1,35 @@
 {
     "name": "@rrazvan.dev/oxlint-plugin-i18n-literal",
-    "version": "0.1.0",
+    "version": "1.0.0",
     "description": "oxlint rules that flag untranslated user-visible string literals in JSX",
-    "keywords": ["oxlint", "oxlint-plugin", "i18n", "i18next", "lint", "jsx"],
+    "keywords": [
+        "oxlint",
+        "oxlint-plugin",
+        "i18n",
+        "i18next",
+        "lint",
+        "jsx"
+    ],
     "license": "MIT",
     "author": "Razvan Rauta",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/rxrdev/oxlint-plugin-i18n-literal.git"
+    },
+    "homepage": "https://github.com/rxrdev/oxlint-plugin-i18n-literal#readme",
+    "bugs": {
+        "url": "https://github.com/rxrdev/oxlint-plugin-i18n-literal/issues"
+    },
     "type": "module",
     "main": "./src/index.mjs",
     "exports": {
         ".": "./src/index.mjs"
     },
-    "files": ["src", "README.md", "LICENSE"],
+    "files": [
+        "src",
+        "README.md",
+        "LICENSE"
+    ],
     "engines": {
         "node": ">=22"
     },

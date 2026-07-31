@@ -6,6 +6,7 @@
  * configuration lives in `settings['i18n-literal']`.
  */
 
+import noLiteralJsxAttribute from './rules/no-literal-jsx-attribute.mjs';
 import noLiteralString from './rules/no-literal-string.mjs';
 
 const stub = {
@@ -26,7 +27,7 @@ const plugin = {
     },
     rules: {
         'no-literal-string': noLiteralString,
-        'no-literal-jsx-attribute': stub,
+        'no-literal-jsx-attribute': noLiteralJsxAttribute,
         'no-literal-template': stub,
     },
     configs: {

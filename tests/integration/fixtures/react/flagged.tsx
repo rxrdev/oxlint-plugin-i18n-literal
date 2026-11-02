@@ -9,9 +9,18 @@ type Props = {
     placeholder?: string;
     role: string;
     theme: string;
+    name: string;
+    total: string;
 };
 
-export function Flagged({ title, placeholder, role, theme }: Props) {
+export function Flagged({
+    title,
+    placeholder,
+    role,
+    theme,
+    name,
+    total,
+}: Props) {
     return (
         <div>
             {/* expect-warning: Settings */}
@@ -46,6 +55,18 @@ export function Flagged({ title, placeholder, role, theme }: Props) {
 
             {/* expect-warning: Toggle ${...} theme */}
             <span className="sr-only">{`Toggle ${theme} theme`}</span>
+
+            {/* expect-warning: Hallo ${...} */}
+            <p>{`Hallo ${name}`}</p>
+
+            {/* expect-warning: Gesamt:\u00a0${...} */}
+            <p>{`Gesamt:\u00a0${total}`}</p>
+
+            {/* expect-warning: \u0048allo ${...} */}
+            <p>{`\u0048allo ${name}`}</p>
+
+            {/* expect-warning: \unicode ${...} */}
+            <p>{String.raw`\unicode ${name}`}</p>
         </div>
     );
 }

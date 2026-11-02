@@ -65,13 +65,22 @@ export default {
                     return;
                 }
 
-                // Render the literal with its expressions elided, so the
-                // diagnostic shows shape rather than a half-quoted fragment.
+                // Judge the cooked text, the string users actually see, so an
+                // escape like a non-breaking space is not mistaken for words.
+                // Cooked is null only for an invalid escape in a tagged
+                // template, hence the raw fallback.
+                const judged = node.quasis
+                    .map((quasi) => quasi.value.cooked ?? quasi.value.raw)
+                    .join('${...}');
+
+                // The display form: the raw source spelling with expressions
+                // elided, so the diagnostic shows what the user typed and its
+                // shape rather than a half-quoted fragment.
                 const rendered = node.quasis
                     .map((quasi) => quasi.value.raw)
                     .join('${...}');
 
-                if (shouldIgnoreString(rendered, options)) {
+                if (shouldIgnoreString(judged, options)) {
                     return;
                 }
 
@@ -79,7 +88,7 @@ export default {
                 // that is purely interpolation (`${a}${b}`) has no copy to
                 // translate.
                 const hasText = node.quasis.some((quasi) => {
-                    const text = quasi.value.raw || quasi.value.cooked || '';
+                    const text = quasi.value.cooked ?? quasi.value.raw ?? '';
 
                     return text.trim() && !shouldIgnoreString(text, options);
                 });

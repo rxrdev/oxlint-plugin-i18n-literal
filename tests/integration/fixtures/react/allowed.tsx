@@ -9,11 +9,36 @@ type Props = {
     errors: Record<string, string>;
     field: { name: string };
     loadingAction: string;
+    a: string;
+    b: string;
+    c: string;
+    d: string;
+    currency: string;
+    cond: boolean;
 };
 
-export function Allowed({ errors, field, loadingAction }: Props) {
+export function Allowed({
+    errors,
+    field,
+    loadingAction,
+    a,
+    b,
+    c,
+    d,
+    currency,
+    cond,
+}: Props) {
     const { t } = useTranslation('common');
     const { t: tShared } = useTranslation('shared');
+
+    // A template literal inside a conditional in a nested render function.
+    function renderFormula() {
+        return (
+            <div>
+                {cond ? <p>{`(${a} \u2212 ${b}) × ${c} = ${d}`}</p> : null}
+            </div>
+        );
+    }
 
     return (
         <div className="flex gap-2" data-testid="allowed">
@@ -59,6 +84,17 @@ export function Allowed({ errors, field, loadingAction }: Props) {
             <a href="/requests" target="_blank" rel="noreferrer" role="link">
                 {t('actions.view')}
             </a>
+
+            {/* Escapes whose cooked text is whitespace or symbols only */}
+            <p>{`${a}\n${b}`}</p>
+            <p>{`${a}\t${b}`}</p>
+            <p>{`${a}\x20${b}`}</p>
+            <p>{`${a}\u00a0${b}`}</p>
+            <p>{`${a}\u{00A0}${b}`}</p>
+            <NumberInput suffix={`\u00a0${currency}`} />
+            <abbr title={`${a}\u00a0${b}`} />
+            <p>{`(${a} \u2212 ${b}) × ${c} = ${d}`}</p>
+            {renderFormula()}
         </div>
     );
 }
